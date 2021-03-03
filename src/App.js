@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import TodoItem from "./components/TodoItem";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [todos, setTodos] = useState([
+		{
+			id: 1,
+			text: "Take out trash",
+			completed: true,
+		},
+		{
+			id: 2,
+			text: "Grocery Shopping",
+			completed: false,
+		},
+		{
+			id: 3,
+			text: "Learn react",
+			completed: true,
+		},
+		{
+			id: 4,
+			text: "Swimming",
+			completed: false,
+		},
+	]);
+
+	useEffect(() => {
+		localStorage.setItem("Todos", JSON.stringify(todos));
+	});
+
+	return (
+		<div className="App">
+			{todos.map((todo) => (
+				<TodoItem key={todo.id} data={todo} todos={todos} setTodos={setTodos} />
+			))}
+		</div>
+	);
 }
 
 export default App;
